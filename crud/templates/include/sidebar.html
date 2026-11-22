@@ -1,0 +1,102 @@
+{% url 'dashboard' as dash_url %}
+
+<aside id="sidebar"
+    class="fixed lg:static inset-y-0 left-0 z-40
+           w-64 bg-arctic-900 text-frost-100 flex flex-col shrink-0
+           -translate-x-full lg:translate-x-0
+           transition-transform duration-200 ease-in-out">
+
+    <a href="{{ dash_url }}"
+       class="flex items-center gap-3 px-3 py-4 border-b border-arctic-700
+              hover:bg-arctic-800 transition-colors cursor-pointer group
+              lg:px-6 lg:py-5">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-ice-400 to-arctic-400
+                    flex items-center justify-center text-base shadow-lg shadow-ice-400/20
+                    group-hover:shadow-ice-400/40 transition-shadow">🥶
+            </svg>
+        </div>
+        <div class="leading-tight">
+            <h1 class="text-sm font-bold text-ice-300 tracking-tight">IcePlant MS</h1>
+            <p class="text-[10px] text-frost-500 font-medium uppercase tracking-wide">Management System</p>
+        </div>
+    </a>
+
+    <nav class="flex-1 px-3 py-4 space-y-1">
+        <a href="{{ dash_url }}"
+           class="flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium
+                  transition-colors duration-150
+                  focus:outline-none focus:ring-2 focus:ring-ice-400
+                  {% if request.resolver_match.url_name == 'dashboard' or current_page == 'dashboard' %}
+                    bg-arctic-700 text-white shadow-[inset_0_1px_3px_rgba(24,191,255,.12)]
+                  {% else %}
+                    text-frost-300 hover:bg-arctic-700 hover:text-white
+                  {% endif %}">
+            <span class="text-base shrink-0"><svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1"/></svg></span>
+            <span>Dashboard</span>
+        </a>
+
+        {% url 'inventory_list' as inv_url %}
+        <a href="{{ inv_url }}"
+           class="flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium
+                  transition-colors duration-150
+                  focus:outline-none focus:ring-2 focus:ring-ice-400
+                  {% if request.resolver_match.url_name in 'inventory_list,inventory_add,inventory_edit,inventory_delete' or current_page == 'inventory' %}
+                    bg-arctic-700 text-white shadow-[inset_0_1px_3px_rgba(24,191,255,.12)]
+                  {% else %}
+                    text-frost-300 hover:bg-arctic-700 hover:text-white
+                  {% endif %}">
+            <span class="text-base shrink-0"><svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg></span>
+            <span>Inventory</span>
+        </a>
+
+        {% url 'customer_list' as cust_url %}
+        <a href="{{ cust_url }}"
+           class="flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium
+                  transition-colors duration-150
+                  focus:outline-none focus:ring-2 focus:ring-ice-400
+                  {% if request.resolver_match.url_name in 'customer_list,customer_add,customer_edit,customer_delete' or current_page == 'customers' %}
+                    bg-arctic-700 text-white shadow-[inset_0_1px_3px_rgba(24,191,255,.12)]
+                  {% else %}
+                    text-frost-300 hover:bg-arctic-700 hover:text-white
+                  {% endif %}">
+            <span class="text-base shrink-0"><svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+            <span>Customers</span>
+        </a>
+
+        {% url 'order_list' as order_url %}
+        <a href="{{ order_url }}"
+           class="flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium
+                  transition-colors duration-150
+                  focus:outline-none focus:ring-2 focus:ring-ice-400
+                  {% if request.resolver_match.url_name in 'order_list,order_add,order_detail,order_delete,order_update_status,order_item_add,order_item_edit,order_item_delete' or current_page == 'orders' %}
+                    bg-arctic-700 text-white shadow-[inset_0_1px_3px_rgba(24,191,255,.12)]
+                  {% else %}
+                    text-frost-300 hover:bg-arctic-700 hover:text-white
+                  {% endif %}">
+            <span class="text-base shrink-0"><svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg></span>
+            <span>Orders</span>
+        </a>
+    </nav>
+
+    <div class="px-3 pb-3">
+        <div class="rounded-xl bg-arctic-800/60 ring-1 ring-arctic-700 px-3 py-2.5">
+            <p class="text-[11px] text-frost-500 font-medium">Welcome back,</p>
+            <p class="text-sm font-semibold text-frost-100 truncate">{{ user.get_full_name|default:user.username }}</p>
+        </div>
+    </div>
+
+    <div class="px-3 pb-4 border-t border-arctic-700 pt-3">
+        <form method="POST" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit"
+                class="flex items-center gap-3 w-full px-3 py-2 rounded-lg text-sm font-medium
+                       text-frost-400 hover:bg-arctic-700 hover:text-white
+                       focus:outline-none focus:ring-2 focus:ring-ice-400
+                       transition-colors duration-150">
+                <span class="text-base shrink-0"><svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>
+                <span>Sign out</span>
+            </button>
+        </form>
+    </div>
+
+</aside>

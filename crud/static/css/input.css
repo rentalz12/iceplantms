@@ -1,0 +1,101 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ice-50: #edfaff;
+  --color-ice-100: #d5f3ff;
+  --color-ice-200: #a3e8ff;
+  --color-ice-300: #57d6ff;
+  --color-ice-400: #17bfff;
+  --color-ice-500: #00a3e8;
+  --color-ice-600: #0081c4;
+  --color-ice-700: #0064a0;
+  --color-ice-800: #004f80;
+  --color-ice-900: #003a5c;
+
+  --color-frost-50: #f8fafa;
+  --color-frost-100: #eef2f3;
+  --color-frost-200: #d8e2e5;
+  --color-frost-300: #b4c8ce;
+  --color-frost-400: #8aadb6;
+  --color-frost-500: #62909b;
+  --color-frost-600: #4a737d;
+  --color-frost-700: #385860;
+  --color-frost-800: #284049;
+  --color-frost-900: #1a2c33;
+
+  --color-arctic-50: #edfaf8;
+  --color-arctic-100: #d0f2ee;
+  --color-arctic-200: #9de4da;
+  --color-arctic-300: #5dcbbe;
+  --color-arctic-400: #2aab9e;
+  --color-arctic-500: #158a80;
+  --color-arctic-600: #0f6e66;
+  --color-arctic-700: #0b5550;
+  --color-arctic-800: #08403c;
+  --color-arctic-900: #052c29;
+
+  --color-aurora-50: #fff8ed;
+  --color-aurora-100: #ffefd5;
+  --color-aurora-200: #ffd8a3;
+  --color-aurora-300: #ffc057;
+  --color-aurora-400: #ffa517;
+  --color-aurora-500: #e68a00;
+  --color-aurora-600: #b86b00;
+  --color-aurora-700: #8a4d00;
+  --color-aurora-800: #5c3300;
+  --color-aurora-900: #2e1a00;
+
+  --color-glacier-50: #edfcf8;
+  --color-glacier-100: #d0f5ee;
+  --color-glacier-200: #a8ecd8;
+  --color-glacier-300: #70ddb9;
+  --color-glacier-400: #38cc98;
+  --color-glacier-500: #00b574;
+  --color-glacier-600: #008d5c;
+  --color-glacier-700: #006544;
+  --color-glacier-800: #003d2c;
+  --color-glacier-900: #001514;
+
+  --color-crimson-50: #fff0f0;
+  --color-crimson-100: #ffd6d6;
+  --color-crimson-200: #ffadad;
+  --color-crimson-300: #ff7575;
+  --color-crimson-400: #ff3d3d;
+  --color-crimson-500: #e60000;
+  --color-crimson-600: #b30000;
+  --color-crimson-700: #800000;
+  --color-crimson-800: #4d0000;
+  --color-crimson-900: #1a0000;
+
+  --font-display: 'Inter', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+
+  --font-light: 300;
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+  --leading-tight: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+
+  --circular-md: 0.375rem;
+  --circular-lg: 0.5rem;
+  --circular-xl: 0.75rem;
+  --circular-2xl: 1rem;
+  --circular-full: 9999px;
+
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}

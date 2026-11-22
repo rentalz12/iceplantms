@@ -1,0 +1,173 @@
+{% extends 'layout/base.html' %}
+
+{% block 'title' %}Inventory{% endblock %}
+
+{% block 'content' %}
+<div class="flex items-center justify-between mb-6">
+    <h2 class="text-2xl font-semibold text-arctic-800">Inventory</h2>
+</div>
+
+<div class="flex items-center justify-between mb-6 gap-4">
+    <form method="get" class="flex-1 max-w-sm">
+        <div class="relative">
+            <input 
+                type="search" 
+                name="q" 
+                value="{{ query }}" 
+                placeholder="Search inventory..." 
+                class="w-full px-4 py-2 pr-10 text-sm border border-frost-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-ice-500"
+            >
+            <button type="submit" class="absolute right-2 top-1/2 -translate-y-1/2 text-frost-400 hover:text-frost-600">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+            </button>
+        </div>
+    </form>
+    <a href="{% url 'inventory_add' %}" class="bg-ice-500 hover:bg-ice-600 focus:ring-2 focus:ring-ice-400 focus:outline-none text-white text-sm px-4 py-2 rounded-lg transition whitespace-nowrap">
+        + Add Item
+    </a>
+</div>
+
+<div class="bg-white rounded-xl border border-frost-200 overflow-hidden transition hover:shadow-md">
+    <div class="overflow-x-auto">
+    <table class="w-full text-sm">
+        <thead class="bg-frost-100 text-frost-600 uppercase text-xs">
+            <tr>
+                <th class="px-6 py-3 text-left">Name</th>
+                <th class="px-6 py-3 text-left">Size</th>
+                <th class="px-6 py-3 text-left">Price</th>
+                <th class="px-6 py-3 text-left">Stock</th>
+                <th class="px-6 py-3 text-left">Last Updated</th>
+                <th class="px-6 py-3 text-left"></th>
+            </tr>
+        </thead>
+        <tbody class="divide-y divide-frost-100">
+            {% for item in items %}
+            <tr class="hover:bg-frost-50 transition">
+                <td class="px-6 py-4 text-arctic-800 font-medium">{{ item.name }}</td>
+                <td class="px-6 py-4 text-frost-600">{{ item.size }}</td>
+                <td class="px-6 py-4 text-frost-600">₱{{ item.price }}</td>
+                <td class="px-6 py-4 text-frost-600">
+                    <input type="number" 
+                        class="stock-input w-20 px-2 py-1 border rounded text-center focus:outline-none focus:ring-2 focus:ring-ice-400
+                            {% if item.quantity == 0 %} border-crimson-300 bg-crimson-50 text-crimson-600
+                            {% elif item.quantity <= 10 %} border-aurora-300 bg-aurora-50 text-aurora-700
+                            {% else %} border-frost-300 text-frost-600
+                            {% endif %}" 
+                        data-id="{{ item.pk }}" 
+                        value="{{ item.quantity }}" 
+                        min="0">
+                </td>
+                <td class="px-6 py-4 text-frost-600">{{ item.last_updated|date:"M d, Y" }}</td>
+                <td class="px-6 py-4 flex gap-3">
+                    <a href="{% url 'inventory_edit' item.pk %}" class="text-ice-500 hover:text-ice-700 focus:ring-2 focus:ring-ice-400 focus:outline-none rounded transition">Edit</a>
+                    <a href="{% url 'inventory_delete' item.pk %}" class="text-crimson-500 hover:text-crimson-700 focus:ring-2 focus:ring-crimson-300 focus:outline-none rounded transition">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" class="px-6 py-8 text-center text-frost-400">No inventory items.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+</div>
+
+{% if items.has_other_pages %}
+<nav class="flex flex-wrap justify-center sm:justify-between items-center gap-4 mt-6 px-6 py-4 border-t border-frost-200">
+    <div class="flex items-center gap-2">
+        {% if items.has_previous %}
+            <a href="?{% if query %}q={{ query }}&{% endif %}page={{ items.number|add:'-1' }}" class="px-3 py-1 border border-frost-300 rounded hover:bg-frost-50 focus:ring-2 focus:ring-ice-400 focus:outline-none">Prev</a>
+        {% else %}
+            <span class="px-3 py-1 border border-frost-200 rounded text-frost-400">Prev</span>
+        {% endif %}
+        
+        {% for num in items.paginator.page_range %}
+            {% if items.number == num and num > items.number|add:'-2' and num < items.number|add:'2' or num < 3 or num > items.paginator.num_pages|add:'-2' %}
+                {% if items.number == num %}
+                    <span class="px-3 py-1 bg-ice-500 text-white rounded">{{ num }}</span>
+                {% else %}
+                    <a href="?{% if query %}q={{ query }}&{% endif %}page={{ num }}" class="px-3 py-1 border border-frost-300 rounded hover:bg-frost-50 focus:ring-2 focus:ring-ice-400 focus:outline-none">{{ num }}</a>
+                {% endif %}
+            {% elif num == 3 or num == items.paginator.num_pages|add:'-2' %}
+                <span class="px-2 text-frost-400">…</span>
+            {% endif %}
+        {% endfor %}
+        
+        {% if items.has_next %}
+            <a href="?{% if query %}q={{ query }}&{% endif %}page={{ items.number|add:'1' }}" class="px-3 py-1 border border-frost-300 rounded hover:bg-frost-50 focus:ring-2 focus:ring-ice-400 focus:outline-none">Next</a>
+        {% else %}
+            <span class="px-3 py-1 border border-frost-200 rounded text-frost-400">Next</span>
+        {% endif %}
+    </div>
+    <span class="text-sm text-frost-500">Page {{ items.number }} of {{ items.paginator.num_pages }}</span>
+</nav>
+{% endif %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.stock-input').forEach(input => {
+        input.addEventListener('blur', function() {
+            updateStock(this);
+        });
+        input.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                this.blur();
+            }
+        });
+    });
+});
+
+function updateStock(element) {
+    const id = element.dataset.id;
+    const quantity = element.value || 0;
+    
+    fetch(`/inventory/${id}/update-stock/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: JSON.stringify({quantity: quantity})
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (!data.success) {
+            alert('Failed to update stock: ' + (data.error || 'Unknown error'));
+        } else {
+            const qty = parseInt(element.value) || 0;
+            element.classList.remove('bg-crimson-50', 'bg-aurora-50', 'bg-aurora-50', 'border-crimson-300', 'border-aurora-300', 'border-frost-200', 'text-crimson-600', 'text-aurora-700', 'text-frost-600');
+            if (qty === 0) {
+                element.classList.add('bg-crimson-50', 'border-crimson-300', 'text-crimson-600');
+            } else if (qty <= 10) {
+                element.classList.add('bg-aurora-50', 'border-aurora-300', 'text-aurora-700');
+            } else {
+                element.classList.add('border-frost-200', 'text-frost-600');
+            }
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Failed to update stock');
+    });
+}
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+</script>
+{% endblock %}
